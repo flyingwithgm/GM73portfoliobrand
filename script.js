@@ -1,9 +1,27 @@
 // Preloader Animation
 const preloader = document.getElementById('preloader');
 const progress = document.querySelector('.progress');
-gsap.to(progress, { width: '100%', duration: 2, ease: 'power2.out', onComplete: () => {
-    gsap.to(preloader, { opacity: 0, duration: 0.5, onComplete: () => preloader.style.display = 'none' });
-}});
+
+// Fallback to hide preloader after 3 seconds
+setTimeout(() => {
+    preloader.classList.add('hidden');
+}, 3000);
+
+// GSAP Preloader Animation
+gsap.to(progress, {
+    width: '100%',
+    duration: 2,
+    ease: 'power2.out',
+    onComplete: () => {
+        gsap.to(preloader, {
+            opacity: 0,
+            duration: 0.5,
+            onComplete: () => {
+                preloader.classList.add('hidden');
+            }
+        });
+    }
+});
 
 // Sound Toggle
 const soundToggle = document.getElementById('sound-toggle');
@@ -16,24 +34,15 @@ soundToggle.addEventListener('click', () => {
     else ambientSound.pause();
 });
 
-// Custom Cursor
+// Custom Cursor (Desktop Only)
 const cursor = document.createElement('div');
 cursor.className = 'custom-cursor';
 document.body.appendChild(cursor);
 
 document.addEventListener('mousemove', e => {
-    gsap.to(cursor, { x: e.clientX - 10, y: e.clientY - 10, duration: 0.1 });
-});
-
-// Parallax Background
-gsap.to('.parallax-bg', {
-    y: 100,
-    scrollTrigger: {
-        trigger: '.hero',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true,
-    },
+    if (window.innerWidth > 768) {
+        gsap.to(cursor, { x: e.clientX - 10, y: e.clientY - 10, duration: 0.1 });
+    }
 });
 
 // Hero Globe (Three.js)
@@ -61,6 +70,17 @@ gsap.from('.hero-content p', { opacity: 0, y: 50, duration: 1, delay: 2.7 });
 gsap.from('.cta-button', { opacity: 0, scale: 0.8, duration: 1, delay: 2.9 });
 gsap.from('.scroll-indicator', { opacity: 0, y: 20, duration: 1, delay: 3.1 });
 
+// Parallax Background
+gsap.to('.parallax-bg', {
+    y: 100,
+    scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true,
+    }
+});
+
 // Timeline Animations
 document.querySelectorAll('[data-gsap="fade-up"]').forEach((el, i) => {
     gsap.from(el, {
@@ -75,10 +95,14 @@ document.querySelectorAll('[data-gsap="fade-up"]').forEach((el, i) => {
     });
 });
 
-// Project Card Flip
+// Project Card Flip (Touch-Friendly for Mobile)
 document.querySelectorAll('[data-gsap="flip"]').forEach((card, i) => {
-    card.addEventListener('mouseenter', () => card.classList.add('flipped'));
-    card.addEventListener('mouseleave', () => card.classList.remove('flipped'));
+    if (window.innerWidth <= 768) {
+        card.addEventListener('click', () => card.classList.toggle('flipped'));
+    } else {
+        card.addEventListener('mouseenter', () => card.classList.add('flipped'));
+        card.addEventListener('mouseleave', () => card.classList.remove('flipped'));
+    }
 });
 
 // Vision & Gallery Animations
