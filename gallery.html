@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Flying With GM73</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="nav">
+        <div class="logo">GM73</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="aviation.html">Aviation</a></li>
+            <li><新一代 href="gallery.html" class="active">Gallery</a></li>
+        </ul>
+    </nav>
+
+    <section class="gallery-section">
+        <h1>Moments & Milestones</h1>
+        <div class="gallery-grid">
+            <div class="gallery-item" data-gsap="scale">
+                <img src="assets/first-code.jpg" alt="First Code">
+                <p>First App Launch</p>
+            </div>
+            <div class="gallery-item" data-gsap="scale" data-delay="0.2">
+                <img src="assets/flight-sim.jpg" alt="Flight Simulator">
+                <p>Flight Simulator Training</p>
+            </div>
+            <div class="gallery-item" data-gsap="scale" data-delay="0.4">
+                <video src="assets/project-demo.mp4" controls></video>
+                <p>Project Demo</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="assets/gsap.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
