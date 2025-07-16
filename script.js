@@ -5,6 +5,17 @@ gsap.to(progress, { width: '100%', duration: 2, ease: 'power2.out', onComplete: 
     gsap.to(preloader, { opacity: 0, duration: 0.5, onComplete: () => preloader.style.display = 'none' });
 }});
 
+// Sound Toggle
+const soundToggle = document.getElementById('sound-toggle');
+const ambientSound = document.getElementById('ambient-sound');
+let isSoundOn = false;
+soundToggle.addEventListener('click', () => {
+    isSoundOn = !isSoundOn;
+    soundToggle.textContent = isSoundOn ? '🔇' : '🔊';
+    if (isSoundOn) ambientSound.play();
+    else ambientSound.pause();
+});
+
 // Custom Cursor
 const cursor = document.createElement('div');
 cursor.className = 'custom-cursor';
@@ -12,6 +23,17 @@ document.body.appendChild(cursor);
 
 document.addEventListener('mousemove', e => {
     gsap.to(cursor, { x: e.clientX - 10, y: e.clientY - 10, duration: 0.1 });
+});
+
+// Parallax Background
+gsap.to('.parallax-bg', {
+    y: 100,
+    scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true,
+    },
 });
 
 // Hero Globe (Three.js)
@@ -37,6 +59,7 @@ animateGlobe();
 gsap.from('.hero-content h1', { opacity: 0, y: 50, duration: 1, delay: 2.5 });
 gsap.from('.hero-content p', { opacity: 0, y: 50, duration: 1, delay: 2.7 });
 gsap.from('.cta-button', { opacity: 0, scale: 0.8, duration: 1, delay: 2.9 });
+gsap.from('.scroll-indicator', { opacity: 0, y: 20, duration: 1, delay: 3.1 });
 
 // Timeline Animations
 document.querySelectorAll('[data-gsap="fade-up"]').forEach((el, i) => {
