@@ -69,6 +69,14 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.preloader.hidden {
+    opacity: 0;
+    display: none;
 }
 
 .preloader-text {
@@ -97,6 +105,26 @@ body {
 @keyframes pulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.5; }
+}
+
+/* Sound Toggle */
+.sound-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #00ffcc;
+    padding: 0.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1001;
+    transition: background 0.3s;
+}
+
+.sound-toggle:hover {
+    background: #00ffcc;
+    color: #0d0d2b;
 }
 
 /* Navigation */
@@ -146,15 +174,17 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    background: linear-gradient(135deg, #00ffcc, #ff00ff, #00ffcc);
-    background-size: 200% 200%;
-    animation: gradientShift 10s ease infinite;
+    overflow: hidden;
 }
 
-@keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+.parallax-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('assets/stars-bg.jpg') center/cover;
+    transform: translateZ(0);
 }
 
 #globe-canvas {
@@ -192,6 +222,19 @@ body {
     background: #00ffcc;
     color: #0d0d2b;
     box-shadow: 0 0 20px #00ffcc;
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    font-size: 2rem;
+    color: #00ffcc;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
 }
 
 /* Sections */
@@ -256,8 +299,7 @@ body {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(15px);
     padding: 2rem;
-    border-radius: 15px;
-    transition: transform 0.6s;
+    border-radius: 15 Convolutional Neural Networks;
 }
 
 .card-back {
@@ -296,9 +338,13 @@ body {
     border-radius: 10px;
 }
 
+/* Responsive Design */
 @media (max-width: 768px) {
     .hero-content h1 { font-size: 3rem; }
     .nav-links { gap: 1rem; }
     .nav-links a { font-size: 0.9rem; }
     .custom-cursor { display: none; }
+    .scroll-indicator { font-size: 1.5rem; }
+    .preloader-text { font-size: 1.5rem; }
+    .progress-bar { width: 150px; }
 }
